@@ -1,0 +1,47 @@
+.shuffle-parent {
+  display: inline-block;
+  white-space: normal;
+  line-height: inherit;
+  letter-spacing: 0;
+}
+
+.shuffle-char-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.08em;
+  min-width: 0.62em;
+  vertical-align: -0.08em;
+}
+
+.shuffle-char-wrapper[data-space="true"] {
+  min-width: 0.42em;
+}
+
+.shuffle-strip {
+  display: inline-flex;
+  will-change: transform;
+}
+
+.shuffle-strip-vertical {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.shuffle-char {
+  display: inline-grid;
+  min-width: 0.62em;
+  height: 1.08em;
+  place-items: center;
+  line-height: 1.08;
+  text-align: center;
+}
+
+.shuffle-char-wrapper[data-space="true"] .shuffle-char {
+  min-width: 0.42em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shuffle-strip {
+    will-change: auto;
+  }
+}

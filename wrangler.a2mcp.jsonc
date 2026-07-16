@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ctbz-a2mcp-worker",
+  "main": "./src/a2mcp-worker.ts",
+  "compatibility_date": "2026-07-07",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ctbz-a2mcp",
+      "database_id": "00f9ce21-785f-4f5c-b5a6-a84f67ddd03c",
+      "migrations_dir": "./drizzle"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

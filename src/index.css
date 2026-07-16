@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@property --result-border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 84 81% 44%;
+    --primary-foreground: 86 78% 7%;
+    --secondary: 214 32% 93%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 214 32% 94%;
+    --muted-foreground: 218 17% 47%;
+    --accent: 214 32% 94%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 4 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 25% 88%;
+    --input: 214 25% 88%;
+    --ring: 84 81% 44%;
+    --radius: 16px;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --background: 88 30% 7%;
+    --foreground: 90 25% 96%;
+    --card: 88 24% 10%;
+    --card-foreground: 90 25% 96%;
+    --popover: 88 24% 10%;
+    --popover-foreground: 90 25% 96%;
+    --primary: 84 81% 55%;
+    --primary-foreground: 86 78% 7%;
+    --secondary: 88 16% 15%;
+    --secondary-foreground: 90 25% 96%;
+    --muted: 88 14% 16%;
+    --muted-foreground: 86 12% 68%;
+    --accent: 88 18% 18%;
+    --accent-foreground: 90 25% 96%;
+    --destructive: 6 86% 64%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 88 14% 22%;
+    --input: 88 14% 22%;
+    --ring: 84 81% 55%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: light;
+    font-family:
+      Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", ui-sans-serif,
+      system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-[#050a03] text-foreground;
+    margin: 0;
+    min-width: 320px;
+  }
+
+  button {
+    font: inherit;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  .option-card {
+    background: hsl(var(--border));
+    transform: perspective(960px) translateY(0) rotateX(0deg) rotateY(0deg);
+    transform-style: preserve-3d;
+    transition:
+      background 180ms ease,
+      box-shadow 180ms ease,
+      transform 160ms ease;
+    will-change: transform;
+  }
+
+  .option-card:hover {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.68),
+      hsl(var(--border)),
+      hsl(var(--primary) / 0.42)
+    );
+    box-shadow: 0 18px 42px hsl(var(--primary) / 0.1);
+    transform: perspective(960px) translateY(-3px) rotateX(1.2deg) rotateY(-1.8deg);
+  }
+
+  .option-card[data-selected="true"] {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary)),
+      hsl(var(--ring) / 0.72),
+      hsl(var(--primary) / 0.36)
+    );
+    box-shadow:
+      0 18px 46px hsl(var(--primary) / 0.12),
+      inset 0 0 0 1px hsl(var(--primary) / 0.1);
+  }
+
+  .option-card [data-option-content] {
+    background: hsl(var(--card));
+  }
+
+  .option-card[data-selected="true"] [data-option-content] {
+    background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--secondary)));
+  }
+
+  .result-card-frame {
+    background:
+      conic-gradient(
+        from var(--result-border-angle, 0deg),
+        hsl(var(--primary) / 0.16),
+        hsl(var(--primary) / 0.88),
+        hsl(var(--primary) / 0.22),
+        hsl(var(--border)),
+        hsl(var(--primary) / 0.16)
+      );
+    transform: perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(0);
+    transform-style: preserve-3d;
+    transition:
+      transform 220ms ease,
+      box-shadow 220ms ease;
+    animation: result-border-spin 6.5s linear infinite;
+    will-change: transform;
+  }
+
+  .result-card-frame:hover {
+    transform: perspective(1200px) rotateX(1.6deg) rotateY(-2.8deg) translateY(-5px);
+    box-shadow: 0 34px 110px hsl(var(--primary) / 0.17);
+  }
+
+  @media (hover: none), (prefers-reduced-motion: reduce) {
+    .option-card {
+      transform: none;
+      transition:
+        background 180ms ease,
+        box-shadow 180ms ease;
+      will-change: auto;
+    }
+
+    .result-card-frame {
+      animation: none;
+      transform: none;
+      will-change: auto;
+    }
+  }
+
+  @keyframes result-border-spin {
+    to {
+      --result-border-angle: 360deg;
+    }
+  }
+}
